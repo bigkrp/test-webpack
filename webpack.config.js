@@ -4,10 +4,16 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 
 module.exports = {
-	entry: './home',
+	context: __dirname + '/frontend',
+
+	entry: {
+		app: './app'
+	},
+
 	output: {
-		filename: 'build.js',
-		library: 'home'
+		path: __dirname + '/public/js',
+		publicPath: '/js/',
+		filename: '[name].js'
 	},
 
 	watch: NODE_ENV == 'development',
@@ -19,9 +25,7 @@ module.exports = {
 	devtool: (NODE_ENV == 'development') ? 'cheap-inline-source-map' : null,
 
 	plugins: [
-		new webpack.DefinePlugin({
-			NODE_ENV: JSON.stringify(NODE_ENV)
-		})
+		new webpack.NoErrorsPlugin()
 	],
 
 	resolve: {
