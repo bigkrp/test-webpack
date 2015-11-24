@@ -1,0 +1,6 @@
+sudo npm i -g webpack
+sudo npm i -g node-static
+	на маке запускать через sudo
+
+npm i webpack (локально)
+npm i babel-loader@5 (локально) больше инфы в начале скринкаста http://learn.javascript.ru/webpack-screencast
