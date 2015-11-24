@@ -4,3 +4,4 @@ sudo npm i -g node-static
 
 npm i webpack (локально)
 npm i babel-loader@5 (локально) больше инфы в начале скринкаста http://learn.javascript.ru/webpack-screencast
+npm i babel-runtime
