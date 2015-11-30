@@ -25,7 +25,7 @@ module.exports = {
 	devtool: (NODE_ENV == 'development') ? 'cheap-inline-source-map' : null,
 
 	plugins: [
-		new webpack.NoErrorsPlugin()
+		new webpack.ContextReplacementPlugin(/node_modules\/moment\/locale/, /ru|en-gb/)
 	],
 
 	resolve: {
@@ -39,12 +39,12 @@ module.exports = {
 		extensions: ['', '.js']
 	},
 
-	module: {
-		loaders: [{
-			test: /\.js$/,
-			loader: 'babel?optional[]=runtime'
-		}]
-	}
+	// module: {
+	// 	loaders: [{
+	// 		test: /\.js$/,
+	// 		loader: 'babel?optional[]=runtime'
+	// 	}]
+	// }
 };
 
 if (NODE_ENV == 'production') {

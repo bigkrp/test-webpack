@@ -7,3 +7,5 @@ sudo npm i -g node-static
 npm i webpack (локально)
 npm i babel-loader@5 (локально) больше инфы в начале скринкаста http://learn.javascript.ru/webpack-screencast
 npm i babel-runtime
+npm i bundle-loader (для урока 4.4)
+npm i moment (для урока 4.6)

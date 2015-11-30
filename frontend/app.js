@@ -1,7 +1,7 @@
 'use strict';
 
-let moduleName = location.pathname.slice(1);
+let moment = require('moment');
 
-let route = require('./routes/' + moduleName);
+let today = moment(new Date()).locale('en');
 
-route();
+alert(today.format('DD MMM YYYY'))
