@@ -1,7 +1,5 @@
 'use strict';
 
-let moment = require('moment');
+let old = require('old');
 
-let today = moment(new Date()).locale('en');
-
-alert(today.format('DD MMM YYYY'))
+old();

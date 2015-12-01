@@ -1,6 +1,6 @@
 'use strict';
 
-const NODE_ENV = process.env.NODE_ENV || 'development';
+// const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 
 module.exports = {
@@ -11,24 +11,30 @@ module.exports = {
 	},
 
 	output: {
-		path: __dirname + '/public/js',
-		publicPath: '/js/',
+		path: __dirname + '/public/',
+		// publicPath: '/js/',
 		filename: '[name].js'
 	},
 
-	watch: NODE_ENV == 'development',
+	// watch: NODE_ENV == 'development',
 
-	watchOption: {
-		aggregateTimeout: 100
-	},
+	// watchOption: {
+	// 	aggregateTimeout: 100
+	// },
 
-	devtool: (NODE_ENV == 'development') ? 'cheap-inline-source-map' : null,
+	// devtool: (NODE_ENV == 'development') ? 'cheap-inline-source-map' : null,
 
 	plugins: [
-		new webpack.ContextReplacementPlugin(/node_modules\/moment\/locale/, /ru|en-gb/)
+		new webpack.ProvidePlugin({
+			pluck: 'lodash/collection/pluck'
+		})
 	],
 
 	resolve: {
+		root: __dirname + '/vendor',
+		alias: {
+			old: 'old/dist/old'
+		},
 		modulesDirectories: ['node_modules'],
 		extensions: ['', '.js']
 	},
@@ -39,22 +45,29 @@ module.exports = {
 		extensions: ['', '.js']
 	},
 
-	// module: {
-	// 	loaders: [{
-	// 		test: /\.js$/,
-	// 		loader: 'babel?optional[]=runtime'
-	// 	}]
-	// }
+	module: {
+		loaders: [{
+			test: /\.js$/,
+			include: __dirname + '/frontend',
+			loader: 'babel'
+		},
+		{
+			test: /old.js$/,
+			loader: 'imports?workSettings=>{delay:500}!exports?Work'
+		}]
+	},
+
+	noParse: /angular\/angular.js/
 };
 
-if (NODE_ENV == 'production') {
-	module.exports.plugins.push(
-		new webpack.optimize.UglifyJsPlugin({
-				compress: {
-					warnings: false,
-					drop_console: true,
-					unsafe: true
-				}
-		})
-	);
-}
+// if (NODE_ENV == 'production') {
+// 	module.exports.plugins.push(
+// 		new webpack.optimize.UglifyJsPlugin({
+// 				compress: {
+// 					warnings: false,
+// 					drop_console: true,
+// 					unsafe: true
+// 				}
+// 		})
+// 	);
+// }

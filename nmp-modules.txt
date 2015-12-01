@@ -9,3 +9,6 @@ npm i babel-loader@5 (локально) больше инфы в начале с
 npm i babel-runtime
 npm i bundle-loader (для урока 4.4)
 npm i moment (для урока 4.6)
+npm i lodash (урок 5.2)
+npm i angular (урок 5.3)
+npm i exports-loader imports-loader (урок 5.4)
