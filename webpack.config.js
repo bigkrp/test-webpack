@@ -6,13 +6,11 @@ const webpack = require('webpack');
 module.exports = {
 	context: __dirname + '/frontend',
 
-	entry: {
-		app: './app'
-	},
+	entry: './main',
 
 	output: {
 		path: __dirname + '/public/',
-		// publicPath: '/js/',
+		publicPath: '/',
 		filename: '[name].js'
 	},
 
@@ -24,36 +22,35 @@ module.exports = {
 
 	// devtool: (NODE_ENV == 'development') ? 'cheap-inline-source-map' : null,
 
-	plugins: [
-		new webpack.ProvidePlugin({
-			pluck: 'lodash/collection/pluck'
-		})
-	],
+	// resolve: {
+	// 	root: __dirname + '/vendor',
+	// 	alias: {
+	// 		old: 'old/dist/old'
+	// 	},
+	// 	modulesDirectories: ['node_modules'],
+	// 	extensions: ['', '.js']
+	// },
 
-	resolve: {
-		root: __dirname + '/vendor',
-		alias: {
-			old: 'old/dist/old'
-		},
-		modulesDirectories: ['node_modules'],
-		extensions: ['', '.js']
-	},
-
-	resolveLoader:{
-		modulesDirectories: ['node_modules'],
-		moduleTemplates: ['*-loader', '*'],
-		extensions: ['', '.js']
-	},
+	// resolveLoader:{
+	// 	modulesDirectories: ['node_modules'],
+	// 	moduleTemplates: ['*-loader', '*'],
+	// 	extensions: ['', '.js']
+	// },
 
 	module: {
 		loaders: [{
 			test: /\.js$/,
-			include: __dirname + '/frontend',
+			// include: __dirname + '/frontend',
 			loader: 'babel'
-		},
-		{
-			test: /old.js$/,
-			loader: 'imports?workSettings=>{delay:500}!exports?Work'
+		}, {
+			test: /\.jade$/,
+			loader: 'jade'
+		}, {
+			test: /\.css$/,
+			loader: 'style!css!autoprefixer?browsers=last 2 versions'
+		}, {
+			test: /\.(png|svg|jpg|ttf|eot|woff|woff2)$/,
+			loader: 'url?name=[path][name].[ext]?limit=4096'
 		}]
 	},
 

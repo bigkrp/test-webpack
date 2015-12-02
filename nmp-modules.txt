@@ -12,3 +12,10 @@ npm i moment (для урока 4.6)
 npm i lodash (урок 5.2)
 npm i angular (урок 5.3)
 npm i exports-loader imports-loader (урок 5.4)
+
+npm i -g jade (урок 6.1)
+npm i style-loader jade-loader css-loader style-loader file-loader stylus-loader (урок 6.1)
+
+npm i flag-icon-css (урок 6.2)
+
+npm i url-loader (урок 6.3)
