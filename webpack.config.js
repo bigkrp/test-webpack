@@ -3,6 +3,8 @@
 // const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 module.exports = {
 	context: __dirname + '/frontend',
 
@@ -46,15 +48,17 @@ module.exports = {
 			test: /\.jade$/,
 			loader: 'jade'
 		}, {
-			test: /\.css$/,
-			loader: 'style!css!autoprefixer?browsers=last 2 versions'
+			test: /\.styl$/,
+			loader: ExtractTextPlugin.extract('css!stylus?resolve url')
 		}, {
 			test: /\.(png|svg|jpg|ttf|eot|woff|woff2)$/,
 			loader: 'url?name=[path][name].[ext]?limit=4096'
 		}]
 	},
 
-	noParse: /angular\/angular.js/
+	plugins: [
+		new ExtractTextPlugin('[name].css', {allChunks: true})
+	]
 };
 
 // if (NODE_ENV == 'production') {
