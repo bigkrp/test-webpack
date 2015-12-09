@@ -1,8 +1,8 @@
 'use strict';
 
-import './menu.styl';
-
 import template from './menu.jade';
+
+require('./menu.styl');
 
 export default class Menu {
 	constructor(options) {

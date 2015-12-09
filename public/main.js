@@ -97,26 +97,28 @@
 
 	'use strict';
 
-	__webpack_require__.e/* nsure */(1, function (require) {
+	exports.showMenu = function () {
 
-		var Menu = __webpack_require__(1);
+		__webpack_require__.e/* nsure */(1, function (require) {
+			var Menu = __webpack_require__(1).default;
 
-		var pandaMenu = new Menu({
-			title: "Меню панды",
-			items: [{
-				text: 'Яйца',
-				href: '#eggs'
-			}, {
-				text: 'Мясо',
-				href: '#meat'
-			}, {
-				text: '99% еды - бамбук!',
-				href: '#bamboo'
-			}]
+			var menu = new Menu({
+				title: 'О сайте',
+				items: [{
+					text: 'Кто придумал?',
+					href: '#think'
+				}, {
+					text: 'Кто сделал?',
+					href: '#do'
+				}, {
+					text: 'Кто оплатил?',
+					href: '#pay'
+				}]
+			});
+
+			document.body.appendChild(menu.elem);
 		});
-
-		document.body.appendChild(pandaMenu.elem);
-	});
+	};
 
 /***/ }
 /******/ ]);

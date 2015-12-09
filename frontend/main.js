@@ -1,22 +1,21 @@
 'use strict';
 
 require.ensure([], function(require){
+	let Menu = require('./menu').default;
 
-	let Menu = require('./menu');
-
-	let pandaMenu = new Menu({
-		title: "Меню панды",
+	let menu = new Menu({
+		title: 'О сайте!',
 		items: [{
-				text: 'Яйца',
-				href: '#eggs'
-			}, {
-				text: 'Мясо',
-				href: '#meat'
-			}, {
-				text: '99% еды - бамбук!',
-				href: '#bamboo'
-			}]
+			text: 'Кто придумал?',
+			href: '#think'
+		}, {
+			text: 'Кто сделал?',
+			href: '#do'
+		}, {
+			text: 'Кто оплатил?',
+			href: '#pay'
+		}]
 	});
 
-	document.body.appendChild(pandaMenu.elem);
+	document.body.appendChild(menu.elem);
 });
