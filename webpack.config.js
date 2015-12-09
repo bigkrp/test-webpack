@@ -1,64 +1,67 @@
 'use strict';
 
-// const NODE_ENV = process.env.NODE_ENV || 'development';
+const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
-
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const AssetsPlugin = require('assets-webpack-plugin');
+const rimraf = require('rimraf');
 
 module.exports = {
 	context: __dirname + '/frontend',
-
-	entry: './main',
-
+	entry: {
+		main: './main'
+	},
 	output: {
-		path: __dirname + '/public/',
+		path: __dirname + '/public',
 		publicPath: '/',
-		filename: '[name].js'
+		filename: '[name].js',
+		// chunkFilename: '[id].js',
+		// library: '[name]'
 	},
 
-	// watch: NODE_ENV == 'development',
-
-	// watchOption: {
-	// 	aggregateTimeout: 100
-	// },
-
-	// devtool: (NODE_ENV == 'development') ? 'cheap-inline-source-map' : null,
-
-	// resolve: {
-	// 	root: __dirname + '/vendor',
-	// 	alias: {
-	// 		old: 'old/dist/old'
-	// 	},
-	// 	modulesDirectories: ['node_modules'],
-	// 	extensions: ['', '.js']
-	// },
-
-	// resolveLoader:{
-	// 	modulesDirectories: ['node_modules'],
-	// 	moduleTemplates: ['*-loader', '*'],
-	// 	extensions: ['', '.js']
-	// },
-
+	resolve: {
+		extensions: ['', '.js', '.styl']
+	},
 	module: {
 		loaders: [{
 			test: /\.js$/,
-			// include: __dirname + '/frontend',
-			loader: 'babel'
+			loader: 'babel?presets[]=es2015'
 		}, {
 			test: /\.jade$/,
 			loader: 'jade'
 		}, {
 			test: /\.styl$/,
-			loader: ExtractTextPlugin.extract('css!stylus?resolve url')
+			loader: 'style!css!stylus?resolve url'
 		}, {
-			test: /\.(png|svg|jpg|ttf|eot|woff|woff2)$/,
-			loader: 'url?name=[path][name].[ext]?limit=4096'
+			test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
+			loader: 'file?name=[path][name].[ext]?[hash]'
 		}]
 	},
 
 	plugins: [
-		new ExtractTextPlugin('[name].css', {allChunks: true})
-	]
+		{
+			apply: (compiler) => {
+				rimraf.sync(compiler.options.output.path);
+			}
+		},
+		// new ExtractTextPlugin('[name].css', {allChunks: true}),
+		// new webpack.optimize.CommonsChunkPlugin({
+		// 	name: 'common'
+		// }),
+		// new AssetsPlugin({
+		// 	filename: 'assets.json',
+		// 	path:     __dirname + '/public/assets'
+		// })
+	],
+
+	devServer: {
+		host: 'localhost',
+		port: 3000,
+		proxy: [{
+			path: /.*/,
+			target: 'http://localhost:4000'
+		}]		
+	}
 };
 
 // if (NODE_ENV == 'production') {

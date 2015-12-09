@@ -20,3 +20,7 @@ npm i flag-icon-css (урок 6.2)
 
 npm i url-loader (урок 6.3)
 npm i extract-text-webpack-plugin (6.6)
+npm i rimraf (7.1)
+npm i assets-webpack-plugin (7.1)
+
+sudo npm i -g webpack-dev-server (8.1)
