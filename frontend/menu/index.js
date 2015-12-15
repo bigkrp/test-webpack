@@ -9,9 +9,8 @@ export default class Menu {
 		this.elem = document.createElement('div');
 		this.elem.className = 'menu';
 
-
 		this.elem.innerHTML = template(options);
-
+		alert(1234)
 		this.titleElem = this.elem.querySelector('.title');
 
 		this.titleElem.onclick = () => this.elem.classList.toggle('open');

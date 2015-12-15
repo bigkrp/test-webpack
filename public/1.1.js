@@ -1,6 +1,9 @@
 webpackJsonp([1],[
 /* 0 */,
-/* 1 */
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9,7 +12,7 @@ webpackJsonp([1],[
 		value: true
 	});
 
-	var _menu = __webpack_require__(2);
+	var _menu = __webpack_require__(5);
 
 	var _menu2 = _interopRequireDefault(_menu);
 
@@ -17,7 +20,7 @@ webpackJsonp([1],[
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	__webpack_require__(5);
+	__webpack_require__(8);
 
 	var Menu = function Menu(options) {
 		var _this = this;
@@ -43,10 +46,10 @@ webpackJsonp([1],[
 	exports.default = Menu;
 
 /***/ },
-/* 2 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var jade = __webpack_require__(3);
+	var jade = __webpack_require__(6);
 
 	module.exports = function template(locals) {
 	var buf = [];
@@ -80,10 +83,10 @@ webpackJsonp([1],[
 	}
 
 /***/ },
-/* 3 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict'
+	'use strict';
 
 	/**
 	 * Merge two attribute objects giving precedence
@@ -96,10 +99,6 @@ webpackJsonp([1],[
 	 * @return {Object} a
 	 * @api private
 	 */
-
-	;
-
-	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
 
 	exports.merge = function merge(a, b) {
 	  if (arguments.length === 1) {
@@ -149,9 +148,9 @@ webpackJsonp([1],[
 	 */
 	exports.joinClasses = joinClasses;
 	function joinClasses(val) {
-	  return (Array.isArray(val) ? val.map(joinClasses) : val && (typeof val === 'undefined' ? 'undefined' : _typeof(val)) === 'object' ? Object.keys(val).filter(function (key) {
-	    return val[key];
-	  }) : [val]).filter(nulls).join(' ');
+	  return (Array.isArray(val) ? val.map(joinClasses) :
+	    (val && typeof val === 'object') ? Object.keys(val).filter(function (key) { return val[key]; }) :
+	    [val]).filter(nulls).join(' ');
 	}
 
 	/**
@@ -178,8 +177,9 @@ webpackJsonp([1],[
 	  }
 	};
 
+
 	exports.style = function (val) {
-	  if (val && (typeof val === 'undefined' ? 'undefined' : _typeof(val)) === 'object') {
+	  if (val && typeof val === 'object') {
 	    return Object.keys(val).map(function (style) {
 	      return style + ':' + val[style];
 	    }).join(';');
@@ -208,10 +208,12 @@ webpackJsonp([1],[
 	    }
 	  } else if (0 == key.indexOf('data') && 'string' != typeof val) {
 	    if (JSON.stringify(val).indexOf('&') !== -1) {
-	      console.warn('Since Jade 2.0.0, ampersands (`&`) in data attributes ' + 'will be escaped to `&amp;`');
+	      console.warn('Since Jade 2.0.0, ampersands (`&`) in data attributes ' +
+	                   'will be escaped to `&amp;`');
 	    };
 	    if (val && typeof val.toISOString === 'function') {
-	      console.warn('Jade will eliminate the double quotes around dates in ' + 'ISO form after 2.0.0');
+	      console.warn('Jade will eliminate the double quotes around dates in ' +
+	                   'ISO form after 2.0.0');
 	    }
 	    return ' ' + key + "='" + JSON.stringify(val).replace(/'/g, '&apos;') + "'";
 	  } else if (escaped) {
@@ -234,15 +236,15 @@ webpackJsonp([1],[
 	 * @param {Object} escaped
 	 * @return {String}
 	 */
-	exports.attrs = function attrs(obj, terse) {
+	exports.attrs = function attrs(obj, terse){
 	  var buf = [];
 
 	  var keys = Object.keys(obj);
 
 	  if (keys.length) {
 	    for (var i = 0; i < keys.length; ++i) {
-	      var key = keys[i],
-	          val = obj[key];
+	      var key = keys[i]
+	        , val = obj[key];
 
 	      if ('class' == key) {
 	        if (val = joinClasses(val)) {
@@ -278,9 +280,10 @@ webpackJsonp([1],[
 	}
 
 	exports.escape = jade_escape;
-	function jade_escape(html) {
+	function jade_escape(html){
 	  var result = String(html).replace(jade_match_html, jade_encode_char);
-	  if (result === '' + html) return html;else return result;
+	  if (result === '' + html) return html;
+	  else return result;
 	};
 
 	/**
@@ -293,63 +296,68 @@ webpackJsonp([1],[
 	 * @api private
 	 */
 
-	exports.rethrow = function rethrow(err, filename, lineno, str) {
+	exports.rethrow = function rethrow(err, filename, lineno, str){
 	  if (!(err instanceof Error)) throw err;
 	  if ((typeof window != 'undefined' || !filename) && !str) {
 	    err.message += ' on line ' + lineno;
 	    throw err;
 	  }
 	  try {
-	    str = str || __webpack_require__(4).readFileSync(filename, 'utf8');
+	    str = str || __webpack_require__(7).readFileSync(filename, 'utf8')
 	  } catch (ex) {
-	    rethrow(err, null, lineno);
+	    rethrow(err, null, lineno)
 	  }
-	  var context = 3,
-	      lines = str.split('\n'),
-	      start = Math.max(lineno - context, 0),
-	      end = Math.min(lines.length, lineno + context);
+	  var context = 3
+	    , lines = str.split('\n')
+	    , start = Math.max(lineno - context, 0)
+	    , end = Math.min(lines.length, lineno + context);
 
 	  // Error context
-	  var context = lines.slice(start, end).map(function (line, i) {
+	  var context = lines.slice(start, end).map(function(line, i){
 	    var curr = i + start + 1;
-	    return (curr == lineno ? '  > ' : '    ') + curr + '| ' + line;
+	    return (curr == lineno ? '  > ' : '    ')
+	      + curr
+	      + '| '
+	      + line;
 	  }).join('\n');
 
 	  // Alter exception message
 	  err.path = filename;
-	  err.message = (filename || 'Jade') + ':' + lineno + '\n' + context + '\n\n' + err.message;
+	  err.message = (filename || 'Jade') + ':' + lineno
+	    + '\n' + context + '\n\n' + err.message;
 	  throw err;
 	};
 
 	exports.DebugItem = function DebugItem(lineno, filename) {
 	  this.lineno = lineno;
 	  this.filename = filename;
-	};
+	}
+
 
 /***/ },
-/* 4 */
+/* 7 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 5 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(6);
+	var content = __webpack_require__(9);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
+	var update = __webpack_require__(13)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
-	if(false) {
+	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/stylus-loader/index.js?resolve url!./menu.styl", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/stylus-loader/index.js?resolve url!./menu.styl");
+			module.hot.accept(9, function() {
+				var newContent = __webpack_require__(9);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -359,39 +367,37 @@ webpackJsonp([1],[
 	}
 
 /***/ },
-/* 6 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(7)();
+	exports = module.exports = __webpack_require__(10)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".menu .title {\n  padding: 0 6px 0 16px;\n  background: url(" + __webpack_require__(8) + ") left 1px no-repeat;\n  background-size: 14px;\n  font-weight: bold;\n  cursor: pointer;\n}\n.menu .list {\n  display: none;\n  margin: 0;\n}\n.menu .list a {\n  color: #00f;\n}\n.open .list {\n  display: block;\n}\n.open .title {\n  background-image: url(" + __webpack_require__(9) + ");\n}\n", ""]);
+	exports.push([module.id, ".menu .title {\n  padding: 0 6px 0 16px;\n  background: url(" + __webpack_require__(11) + ") left 1px no-repeat;\n  background-size: 14px;\n  font-weight: bold;\n  cursor: pointer;\n}\n.menu .list {\n  display: none;\n  margin: 0;\n}\n.menu .list a {\n  color: #00f;\n}\n.open .list {\n  display: block;\n}\n.open .title {\n  background-image: url(" + __webpack_require__(12) + ");\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 7 */
+/* 10 */
 /***/ function(module, exports) {
-
-	"use strict";
 
 	/*
 		MIT License http://www.opensource.org/licenses/mit-license.php
 		Author Tobias Koppers @sokra
 	*/
 	// css base code, injected by the css-loader
-	module.exports = function () {
+	module.exports = function() {
 		var list = [];
 
 		// return the list of modules as css string
 		list.toString = function toString() {
 			var result = [];
-			for (var i = 0; i < this.length; i++) {
+			for(var i = 0; i < this.length; i++) {
 				var item = this[i];
-				if (item[2]) {
+				if(item[2]) {
 					result.push("@media " + item[2] + "{" + item[1] + "}");
 				} else {
 					result.push(item[1]);
@@ -401,23 +407,25 @@ webpackJsonp([1],[
 		};
 
 		// import a list of modules into the list
-		list.i = function (modules, mediaQuery) {
-			if (typeof modules === "string") modules = [[null, modules, ""]];
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
 			var alreadyImportedModules = {};
-			for (var i = 0; i < this.length; i++) {
+			for(var i = 0; i < this.length; i++) {
 				var id = this[i][0];
-				if (typeof id === "number") alreadyImportedModules[id] = true;
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
 			}
-			for (i = 0; i < modules.length; i++) {
+			for(i = 0; i < modules.length; i++) {
 				var item = modules[i];
 				// skip already imported module
 				// this implementation is not 100% perfect for weird media query combinations
 				//  when a module is imported multiple times with different media queries.
 				//  I hope this will never occur (Hey this way we have smaller bundles)
-				if (typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-					if (mediaQuery && !item[2]) {
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
 						item[2] = mediaQuery;
-					} else if (mediaQuery) {
+					} else if(mediaQuery) {
 						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
 					}
 					list.push(item);
@@ -427,20 +435,21 @@ webpackJsonp([1],[
 		return list;
 	};
 
+
 /***/ },
-/* 8 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "menu/plus.svg?98ce63f56faecc15d2ad86160ba90250";
 
 /***/ },
-/* 9 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "menu/minus.svg?1b66b8289bb55a55c98c5d9d72b019ab";
 
 /***/ },
-/* 10 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

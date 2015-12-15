@@ -1,12 +1,9 @@
 'use strict';
 
-const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// const AssetsPlugin = require('assets-webpack-plugin');
-const rimraf = require('rimraf');
 
-module.exports = {
+module.exports = { // --inlne --hot
 	context: __dirname + '/frontend',
 	entry: {
 		main: './main'
@@ -18,20 +15,17 @@ module.exports = {
 		// chunkFilename: '[id].js',
 		// library: '[name]'
 	},
-
-	resolve: {
-		extensions: ['', '.js', '.styl']
-	},
 	module: {
 		loaders: [{
 			test: /\.js$/,
+			include: __dirname + '/frontend',
 			loader: 'babel?presets[]=es2015'
 		}, {
 			test: /\.jade$/,
 			loader: 'jade'
 		}, {
 			test: /\.styl$/,
-			loader: 'style!css!stylus?resolve url'
+			loader: ExtractTextPlugin.extract('css!stylus?resolve url')
 		}, {
 			test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
 			loader: 'file?name=[path][name].[ext]?[hash]'
@@ -39,28 +33,12 @@ module.exports = {
 	},
 
 	plugins: [
-		{
-			apply: (compiler) => {
-				rimraf.sync(compiler.options.output.path);
-			}
-		},
-		// new ExtractTextPlugin('[name].css', {allChunks: true}),
-		// new webpack.optimize.CommonsChunkPlugin({
-		// 	name: 'common'
-		// }),
-		// new AssetsPlugin({
-		// 	filename: 'assets.json',
-		// 	path:     __dirname + '/public/assets'
-		// })
+		new ExtractTextPlugin('[name].css', {allChunks: true})
 	],
 
 	devServer: {
-		host: 'localhost',
-		port: 3000,
-		proxy: [{
-			path: /.*/,
-			target: 'http://localhost:4000'
-		}]		
+		contentBase: __dirname + '/backend',
+		hot: true
 	}
 };
 
